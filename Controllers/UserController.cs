@@ -27,17 +27,14 @@ namespace Backend.Controllers
         {
             try
             {
-                // Check if user already exists
                 var existingUser = _context.Users.FirstOrDefault(u => u.Email == dto.Email);
                 if (existingUser != null)
                 {
                     return BadRequest(new { message = "Email already in use" });
                 }
 
-                // Hash password
                 var passwordHash = HashPassword(dto.Password);
 
-                // Create new user
                 var user = new UserModal
                 {
                     UserName = dto.UserName,
@@ -51,8 +48,7 @@ namespace Backend.Controllers
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
 
-                // Generate token
-                var token = _tokenService.GenerateToken(user.UserId, user.Email, user.UserName);
+                var token = _tokenService.GenerateToken(user.UserId, user.Email, user.UserName, user.IsAdmin);
 
                 return Ok(new AuthResponseDto
                 {
@@ -74,28 +70,29 @@ namespace Backend.Controllers
         {
             try
             {
-                // Find user by email
+
                 var user = _context.Users.FirstOrDefault(u => u.Email == dto.Email);
                 if (user == null)
                 {
                     return Unauthorized(new { message = "Invalid email or password" });
                 }
 
-                // Verify password
+
                 if (!VerifyPassword(dto.Password, user.PasswordHash))
                 {
                     return Unauthorized(new { message = "Invalid email or password" });
                 }
 
-                // Generate token
-                var token = _tokenService.GenerateToken(user.UserId, user.Email, user.UserName);
+
+                var token = _tokenService.GenerateToken(user.UserId, user.Email, user.UserName, user.IsAdmin);
 
                 return Ok(new AuthResponseDto
                 {
                     UserId = user.UserId,
                     UserName = user.UserName,
                     Email = user.Email,
-                    Token = token
+                    Token = token,
+                    isAdmin = user.IsAdmin
                 });
             }
             catch (Exception ex)

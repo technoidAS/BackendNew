@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-﻿using Backend.Services;
+using Backend.Services;
 namespace Backend.Middlewares
-=======
-using EmpLeave.Services;
-﻿namespace Backend.Middlewares
->>>>>>> f2e50c97362d5b96799aa3b5f87e3b6c2631ab84
 {
     public class JwtMiddleware
     {

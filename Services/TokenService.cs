@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-﻿using Microsoft.IdentityModel.Tokens;
-=======
 using Microsoft.IdentityModel.Tokens;
->>>>>>> f2e50c97362d5b96799aa3b5f87e3b6c2631ab84
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -17,11 +13,7 @@ namespace Backend.Services
                 ?? throw new ArgumentNullException("Jwt:Secret is not configured");
         }
 
-<<<<<<< HEAD
         public string GenerateToken(int UserId, string Email, string UserName, bool isAdmin)
-=======
-        public string GenerateToken(int UserId, string Email, string UserName)
->>>>>>> f2e50c97362d5b96799aa3b5f87e3b6c2631ab84
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_Secret);
@@ -31,12 +23,8 @@ namespace Backend.Services
                 {
                     new Claim("id",UserId.ToString()),
                     new Claim("email",Email),
-<<<<<<< HEAD
                     new Claim("userName",UserName),
                     new Claim("isAdmin", isAdmin.ToString())
-=======
-                    new Claim("userName",UserName)
->>>>>>> f2e50c97362d5b96799aa3b5f87e3b6c2631ab84
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(60),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
