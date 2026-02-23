@@ -1,6 +1,6 @@
-# Backend - E-Commerce API
+# Backend Retail Ordering Website
 
-A comprehensive ASP.NET Core Web API for an e-commerce retail application with user authentication, product management, order processing, and address management.
+A comprehensive ASP.NET Core Web API for a retail ordering application with user authentication, product management, order processing, and address management.
 
 ## 🚀 Technologies Used
 
